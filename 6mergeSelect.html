@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>归并排序</title>
+</head>
+<body>
+<script>
+    //分治法--归并排序--将无序序列分为n个单个的序列.再依次两两合并成组内有序,组外无序,O(nlog2n)
+    //递归+链表
+    //递归理解:到了需要递归的函数的时候,先进行递归,直至递归结束.然后开始回溯,从最"新"的递归结果开始回溯,一次执行下面的程序.
+    // 因此,递归的处理类似于栈---先进后处理!!!
+
+    function mergeSort(a){
+        var len= a.length;
+        if(len<2) return a;//递归结束的条件时的处理
+            var center=Math.floor(len/2);//平分
+        return merge(mergeSort(a.slice(0,center)),mergeSort(a.slice(center+1)));//左数组和有数组进行合并。递归的思想，从内部向外部
+    }
+    function merge(leftArr,rightArr){
+        var final=[];
+        while(leftArr.length || rightArr.length){
+            final.push(leftArr[0]<=rightArr[0] ? leftArr.shift() : rightArr.shift());
+        }
+        return final.concat(leftArr.concat(rightArr));
+    }
+    console.log(mergeSort([23,6,2]).toString());
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>快速排序</title>
+</head>
+<body>
+
+<script>
+     console.log(quick_sort([1,4,6,2,8,0]));
+    function quick_sort(arr) {
+        var len = arr.length;
+        if (len <= 1)//递归结束的条件
+            return arr.slice(0);//递归结束时该怎么处理。数组只有一个值。取出字串0开始
+        var left = [];//左字串
+        var right = [];//右字串
+        var key = [arr[0]];//被比较的数组，为每个数组的第一个数字
+        for (var i = 1; i < len; i++) {
+            if (arr[i] < key[0])   left.push(arr[i]);//小于key值放在左边
+            else   right.push(arr[i]);
+        }
+        //最后把左右半部执行递归的的排序结果拼接
+        return quick_sort(left).concat(key.concat(quick_sort(right))).toString();
+    }
+</script>
+</body>
+</html>

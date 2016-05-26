@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>堆排序</title>
+</head>
+<body>
+<script>
+    Array.prototype.heap_sort = function() {
+        var arr = this.slice(0);
+        function swap(i, j) {
+            var tmp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = tmp;
+        }
+
+        function max_heapify(start, end) {
+            var dad = start;//父节点
+            var son = dad * 2 + 1;//子节点
+            if (son >= end)//无右子树
+                return;
+            if (son + 1 < end && arr[son] < arr[son + 1])
+            //选取左右子树最大的
+                son++;
+            if (arr[dad] <= arr[son]) {
+                //父节点小于最大子节点
+                //交换父子，并且再次维护堆
+                swap(dad, son);
+                max_heapify(son, end);
+            }
+        }
+
+        var len = arr.length;
+        //只对非叶子节点进行   父子维护
+        for (var i = Math.floor(len / 2) - 1; i >= 0; i--)
+            max_heapify(i, len);
+        //依次取出每个大根堆的根节点
+        for (var i = len - 1; i > 0; i--) {
+            swap(0, i);
+            max_heapify(0, i);
+        }
+
+        return arr;
+    };
+
+    console.log([1,5,3,6,2,7,2,7].heap_sort());
+</script>
+</body>
+</html>
